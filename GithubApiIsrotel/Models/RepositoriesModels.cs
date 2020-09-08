@@ -1,0 +1,39 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace GithubApiIsrotel.Models
+{
+    public class RepositoriesModels
+    {
+        [JsonProperty("total_count")]
+        public int Total_Count { get; set; }
+
+        [JsonProperty("items")]
+        public List<UserItems> Items { get; set; }
+    }
+    public class UserItems
+    {
+        [JsonProperty("full_name")]
+        public string FullName { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("html_url")]
+        public string Html_Url { get; set; }
+
+        [JsonProperty("owner")]
+        public OwnerOfRepo Owner { get; set; }
+
+    }
+
+    public class OwnerOfRepo
+    {
+        [JsonProperty("avatar_url")]
+        public string Avatar_Url { get; set; }
+    }
+
+}

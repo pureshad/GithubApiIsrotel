@@ -1,0 +1,17 @@
+﻿@model IEnumerable<GithubApiIsrotel.Models.UserItems>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    foreach (var item in Model)
+    {
+        <p>@item.FullName</p>
+        <img src="@item.Owner.Avatar_Url" alt="Alternate Text" />
+    }
+
+    @*@Html.DisplayFor(w => w.Items);*@
+}
+
