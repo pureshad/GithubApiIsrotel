@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Security.Claims;
 using System.Web.Mvc;
 
 namespace GithubApiIsrotel.Controllers
@@ -14,10 +13,6 @@ namespace GithubApiIsrotel.Controllers
         public RepositoriesModels RepositoriesModels { get; set; }
         public ActionResult Index()
         {
-            if (HttpContext.Session["userCardItem"] != null)
-            {
-                var ses = HttpContext.Session["userCardItem"];
-            }
             return View();
         }
 
@@ -36,7 +31,6 @@ namespace GithubApiIsrotel.Controllers
                 try
                 {
                     rawJSON = webClient.DownloadString(url);
-
                 }
                 catch (Exception e)
                 {
@@ -57,8 +51,11 @@ namespace GithubApiIsrotel.Controllers
 
         public ActionResult Bookmark(string id)
         {
-            var claimIdentity = (ClaimsIdentity)this.User.Identity;
-            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(id))
+            {
+                return HttpNotFound();
+            }
+
             var userItems = new List<UserItems>();
 
             var temp = TempData["repoModels"] as RepositoriesModels;
@@ -66,12 +63,10 @@ namespace GithubApiIsrotel.Controllers
 
             if (Session["userCardItem"] != null)
             {
-                var t = HttpContext.Session["userCardItem"];
                 userItems = ((List<UserItems>)Session["userCardItem"]);
             }
             userItems.Add(userCardItem);
             Session["userCardItem"] = userItems;
-
 
             return RedirectToAction("Index", "Home");
         }
