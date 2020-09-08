@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GithubApiIsrotel.Controllers
@@ -13,7 +12,6 @@ namespace GithubApiIsrotel.Controllers
     public class HomeController : Controller
     {
         public RepositoriesModels RepositoriesModels { get; set; }
-        public int MyProperty { get; set; }
         public ActionResult Index()
         {
             if (HttpContext.Session["userCardItem"] != null)
@@ -47,7 +45,7 @@ namespace GithubApiIsrotel.Controllers
                 RepositoriesModels = JsonConvert.DeserializeObject<RepositoriesModels>(rawJSON);
                 TempData["repoModels"] = RepositoriesModels;
 
-                return View("About", RepositoriesModels.Items);
+                return View("ResultListView", RepositoriesModels.Items);
             }
         }
 
