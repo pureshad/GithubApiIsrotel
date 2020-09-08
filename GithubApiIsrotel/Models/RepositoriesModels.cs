@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace GithubApiIsrotel.Models
 {
@@ -16,6 +13,9 @@ namespace GithubApiIsrotel.Models
     }
     public class UserItems
     {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
         [JsonProperty("full_name")]
         public string FullName { get; set; }
 

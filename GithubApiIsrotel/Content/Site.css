@@ -22,3 +22,23 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-height:200px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 16px;
+}
+
+.card .card-img-top {
+    width: 100px;
+    height: auto;
+    margin-right: 24px;
+}
+
+.mt-8 {
+    margin-top: 8px;
+}

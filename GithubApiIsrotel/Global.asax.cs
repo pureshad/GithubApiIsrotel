@@ -1,3 +1,4 @@
+using GithubApiIsrotel.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace GithubApiIsrotel
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new BinaryIntellectViewEngine());
         }
     }
 }
