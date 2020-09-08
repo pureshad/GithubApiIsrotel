@@ -12,15 +12,21 @@ namespace GithubApiIsrotel.Controllers
 {
     public class HomeController : Controller
     {
+        public RepositoriesModels RepositoriesModels { get; set; }
+        public int MyProperty { get; set; }
         public ActionResult Index()
         {
+            if (HttpContext.Session["userCardItem"] != null)
+            {
+                var ses = HttpContext.Session["userCardItem"];
+            }
             return View();
         }
 
         [HttpGet]
         public ActionResult GetRepositories(SearchModel q)
         {
-            if(q == null)
+            if (q == null)
             {
                 RedirectToAction("Index");
             }
@@ -38,9 +44,10 @@ namespace GithubApiIsrotel.Controllers
                 {
                     return HttpNotFound(e.ToString());
                 }
-                var collections = JsonConvert.DeserializeObject<RepositoriesModels>(rawJSON);
+                RepositoriesModels = JsonConvert.DeserializeObject<RepositoriesModels>(rawJSON);
+                TempData["repoModels"] = RepositoriesModels;
 
-                return View("About", collections.Items);
+                return View("About", RepositoriesModels.Items);
             }
         }
 
@@ -50,12 +57,25 @@ namespace GithubApiIsrotel.Controllers
         }
 
 
-        public ActionResult Bookmark(int id)
+        public ActionResult Bookmark(string id)
         {
             var claimIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var userItems = new List<UserItems>();
 
-            return View();
+            var temp = TempData["repoModels"] as RepositoriesModels;
+            var userCardItem = temp.Items.Where(w => w.Id == id).FirstOrDefault();
+
+            if (Session["userCardItem"] != null)
+            {
+                var t = HttpContext.Session["userCardItem"];
+                userItems = ((List<UserItems>)Session["userCardItem"]);
+            }
+            userItems.Add(userCardItem);
+            Session["userCardItem"] = userItems;
+
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

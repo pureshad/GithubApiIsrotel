@@ -13,7 +13,14 @@
             <div class="card-body">
                 <h5><a href="@item.Html_Url" class="card-title">@item.FullName</a></h5>
                 <p class="card-text">@item.Name</p>
-                @Html.ActionLink("Bookmark", "Bookmark", "Home",new { id = item.Id }, new { @class = "btn btn-primary" })
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Bookmark", "Bookmark", "Home", new { id = item.Id }, new { @class = "btn btn-primary" })
+                }
+                else
+                {
+                    <button class="btn btn-primary" disabled>Bookmark</button>
+                }
             </div>
         </div>
     }
