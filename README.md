@@ -3,6 +3,9 @@ Please read before procced
 
 #Step 1
 Before runing in Debug
+Please check your connection string and refactor the data source if needed in the *Web.config
+*My defaultConnection string route is Data Source=(LocalDb)\SQLExpress
+
 1) run the command EntityFrameworkCore\Enable-Migrations
 2) If migrations enabled run EntityFrameworkCore\Add-Migration [ANY_NAME]
 3) If migration added successfully run the command EntityFrameworkCore\Update-Database
