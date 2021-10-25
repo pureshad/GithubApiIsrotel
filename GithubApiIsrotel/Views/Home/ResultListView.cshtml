@@ -6,6 +6,8 @@
 }
 
 @{
+    var list = Session["userCardItem"] as List<GithubApiIsrotel.Models.UserItems>;
+
     foreach (var item in Model)
     {
         <div class="card">
@@ -15,7 +17,16 @@
                 <p class="card-text">@item.Name</p>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    @Html.ActionLink("Bookmark", "Bookmark", "Home", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    var insideBook = list.Where(w => w.Id == item.Id);
+                    if (insideBook.Count() > 0)
+                    {
+                        <button class="btn btn-info" disabled>Bookmark</button>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Bookmark", "Bookmark", "Home", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    }
+
                 }
                 else
                 {

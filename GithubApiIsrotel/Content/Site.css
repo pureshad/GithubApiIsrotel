@@ -48,3 +48,7 @@ textarea {
     flex-direction: row;
     justify-content: space-between;
 }
+
+.delete-btn {
+    margin: auto;
+}

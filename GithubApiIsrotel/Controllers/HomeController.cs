@@ -38,6 +38,13 @@ namespace GithubApiIsrotel.Controllers
                 }
                 RepositoriesModels = JsonConvert.DeserializeObject<RepositoriesModels>(rawJSON);
                 TempData["repoModels"] = RepositoriesModels;
+                var userItems = new List<UserItems>();
+
+                if (Session["userCardItem"] != null)
+                {
+                    userItems = ((List<UserItems>)Session["userCardItem"]);
+                }
+
 
                 return View("ResultListView", RepositoriesModels.Items);
             }
@@ -66,6 +73,24 @@ namespace GithubApiIsrotel.Controllers
                 userItems = ((List<UserItems>)Session["userCardItem"]);
             }
             userItems.Add(userCardItem);
+            Session["userCardItem"] = userItems;
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult DeleteBookMark(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return HttpNotFound();
+            }
+            var userItems = new List<UserItems>();
+
+            if (Session["userCardItem"] != null)
+            {
+                userItems = ((List<UserItems>)Session["userCardItem"]);
+            }
+            userItems.RemoveAll(w => w.Id == id);
             Session["userCardItem"] = userItems;
 
             return RedirectToAction("Index", "Home");
