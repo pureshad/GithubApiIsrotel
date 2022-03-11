@@ -1,7 +1,4 @@
-﻿using Microsoft.Owin;
-using Owin;
-
-[assembly: OwinStartupAttribute(typeof(GithubApiIsrotel.Startup))]
+﻿[assembly: OwinStartupAttribute(typeof(GithubApiIsrotel.Startup))]
 namespace GithubApiIsrotel
 {
     public partial class Startup

@@ -1,7 +1,6 @@
-﻿namespace GithubApiIsrotel.Models
+﻿namespace GithubApiIsrotel.Models;
+
+public class SearchModel
 {
-    public class SearchModel
-    {
-        public string KeyWord { get; set; }
-    }
+    public string KeyWord { get; set; }
 }
